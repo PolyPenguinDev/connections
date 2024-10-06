@@ -247,7 +247,7 @@ document.getElementById("submit").addEventListener("mousedown", function() {
                 document.getElementById("oneaway").classList.remove("invisible")
                 setTimeout(() => {
                     document.getElementById("oneaway").classList.add("invisible")
-                }, 2000);
+                }, 800);
             }
         } else {
             selected_count = 0;
