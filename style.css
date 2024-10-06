@@ -1,0 +1,154 @@
+.word {
+    width: 100px; /* Set fixed width */
+    height: 100px; /* Set fixed height */
+    border-radius: 15px;
+    display: inline-flex; /* Flexbox to center text */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Align text to center */
+    overflow: hidden; /* Hide overflow if the text is too long */
+    word-wrap: break-word; /* Break words if too long */
+    margin: 1px;
+    margin-bottom: 4px;
+    background-color: #EFEFE6   ;
+    font-family: 'Nunito';
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.button {
+    font-family: 'Nunito';
+    cursor: pointer;
+    font-weight: 500;
+    border: 1px solid black;
+    border-radius: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-right: 2px;
+    margin-left: 2px;
+    
+}
+.disabledbutton {
+    cursor: default;
+    border: 1px solid grey;
+    color: grey;
+}
+.guessdisplay {
+    font-family: 'Nunito';
+    font-weight: 500;
+    text-align: center; /* Centers the text inside the .guessdisplay */
+    display: block; /* Ensure it's a block-level element */
+    margin: 0 auto; /* Center it within its container */
+}
+
+.circle {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-color: #5A594E;
+    border-radius: 50%;
+    vertical-align: middle; /* Aligns the circle with the text */
+    margin: 0; /* Removes any margin between circles */
+    padding: 0; /* Removes any padding between circles */
+    margin-left: 4px;
+}
+
+.usedguess {
+    background-color: white;
+}
+.selected {
+    background-color: #5A594E;
+    color: white;
+}
+.correctline {
+    width: 418px;
+    height: 100px; /* Allow height to adjust based on content */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    margin: 1px;
+    margin-bottom: 4px;
+    background-color: #EFEFE6;
+    font-family: 'Nunito';
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-left: calc(50vw - 217px);
+}
+#easy {
+    background-color: #F9DF6D;
+}
+#medium {
+    background-color: #A0C35A;
+}
+#hard {
+    background-color: #B0C4EF;
+}
+#veryhard {
+    background-color: #BA81C5;
+}
+.buttons {
+    text-align: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    margin-top: 25px;
+}
+.wordcontainer {
+    text-align: center;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+.guessdisplay {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.themeheader {
+    font-weight: 700;
+}
+.invisible {
+    visibility: hidden;
+  }
+#overlay {
+    font-family: "Nunito";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /* optional background */
+    color: white;
+    font-size: 5em;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000; /* ensures it's above other elements */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#oneaway {
+    font-family: "Nunito";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 1); /* optional background */
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    z-index: 1000; /* ensures it's above other elements */
+    width: 90px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

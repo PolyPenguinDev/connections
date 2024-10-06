@@ -2,8 +2,53 @@
 <html>
     <head>
         <title>Connections!</title>
+        
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     </head>
-
-    <body>
+    <body> 
+        <div id="overlay", class="invisible">You Lose</div>
+        <div id="oneaway", class="invisible">One Away...</div>
+        <div class="wordcontainer">
+            <div class="wordline" id="line1">
+                <span class="word">Jacuzzi</span>
+                <span class="word">Bikini</span>
+                <span class="word">Hanger</span>
+                <span class="word">X-ray</span>
+            </div>
+            <div class="wordline" id="line2">
+                <span class="word">Q-tip</span>
+                <span class="word">Toothbrush</span>
+                <span class="word">G-string</span>
+                <span class="word">Chapstick</span>
+            </div>
+            <div class="wordline" id="line3">
+                <span class="word">T-bone</span>
+                <span class="word">Xerox</span>
+                <span class="word">Hipster</span>
+                <span class="word">Skirt</span>
+            </div>
+            <div class="wordline" id="line4">
+                <span class="word">Drill</span>
+                <span class="word">Filet</span>
+                <span class="word">Sink</span>
+                <span class="word">Thong</span>
+            </div>
+        </div>
+        <div class="guessdisplay">Mistakes left: 
+            <span class="circle" id="4"></span>
+            <span class="circle" id="3"></span>
+            <span class="circle" id="2"></span>
+            <span class="circle" id="1"></span>
+        </div>
+        <div class="buttons">
+            <span id="shuffle" class="button">Shuffle</span>
+            <span id="deselect" class="button disabledbutton">Deselect all</span>
+            <span id="submit" class="button disabledbutton">Submit</span>
+        </div>
+        <script src="words.js"></script>
+        <script src="main.js"></script>
     </body>
 </html>
