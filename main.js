@@ -112,12 +112,13 @@ words.forEach(word => {
         }
     });
 });
-const word1 = nouns[Math.floor(Math.random() * nouns.length)];
-const word2 = nouns[Math.floor(Math.random() * nouns.length)];
-const word3 = nouns[Math.floor(Math.random() * nouns.length)];
-const word4 = nouns[Math.floor(Math.random() * nouns.length)];
-console.log(word1, word2, word3, word4)
+
 if (localStorage.getItem("queuedconnections")==null) {
+    const word1 = nouns[Math.floor(Math.random() * nouns.length)];
+    const word2 = nouns[Math.floor(Math.random() * nouns.length)];
+    const word3 = nouns[Math.floor(Math.random() * nouns.length)];
+    const word4 = nouns[Math.floor(Math.random() * nouns.length)];
+    console.log(word1, word2, word3, word4)
     const deepInfraToken = ""; // Make sure to set your token in environment variables
 
     const requestData = {
@@ -187,6 +188,11 @@ if (localStorage.getItem("queuedconnections")==null) {
         i++
     })
 }
+const word1 = nouns[Math.floor(Math.random() * nouns.length)];
+const word2 = nouns[Math.floor(Math.random() * nouns.length)];
+const word3 = nouns[Math.floor(Math.random() * nouns.length)];
+const word4 = nouns[Math.floor(Math.random() * nouns.length)];
+console.log(word1, word2, word3, word4)
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
@@ -286,7 +292,7 @@ function showall() {
     selected_count = 0;
     selected.clear();
     let j=0;
-    let t=0;
+    let t=0.5;
     console.log(foundareas)
     console.log(parsedData)
     foundareas.forEach(run => {
@@ -294,7 +300,7 @@ function showall() {
         
         let myj = j.valueOf()
         if (!run) {
-            t++
+            t+=1.0
             setTimeout(() => {
             
                 parsedData.forEach(line=>{
