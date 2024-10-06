@@ -5,6 +5,7 @@ let parsedData = []
 let failed=1;
 let compline = 0;
 let notneededwords = [];
+let foundareas= [false, false, false, false]
 function isOneElementDifferent(set1, set2) {
     // Check if the sets have the same size + 1
     if (set1.size !== set2.size && set1.size + 1 !== set2.size && set2.size + 1 !== set1.size) {
@@ -116,6 +117,76 @@ const word2 = nouns[Math.floor(Math.random() * nouns.length)];
 const word3 = nouns[Math.floor(Math.random() * nouns.length)];
 const word4 = nouns[Math.floor(Math.random() * nouns.length)];
 console.log(word1, word2, word3, word4)
+if (localStorage.getItem("queuedconnections")==null) {
+    const deepInfraToken = ""; // Make sure to set your token in environment variables
+
+    const requestData = {
+        model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        messages: [
+            {
+                role: "user",
+                content: `Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should be ambiguous enough that they could be mistaken for belonging to the same list, even though they don’t actually share a common theme. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Avoid repeating words within the lists.
+
+    The themes for each group should be crafted to be relatively challenging, aiming for complexity without straying too far from words that a middle schooler would know. Consider using words with multiple definitions or meanings, which could further enhance the ambiguity between the lists.
+
+    The difficulty levels should not simply rely on harder vocabulary but should also involve more intricate or layered themes. Each level should be defined as follows:
+
+    Easy (1): Basic themes with familiar words. make it based on the word "`+word1+`
+    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`
+    Medium-Hard (3): Themes that introduce multiple definitions or cultural references. make it based on the word "`+word3+`
+    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`
+    don't make the themes just be the words, be a little clever
+    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary. only put your FINAL output in json tags, multiple json tags WILL cause errors. State your thought process BEFORE your output`
+            }
+        ],
+        temperature: 0.8
+    };
+
+    fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${deepInfraToken}`
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        parsedData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
+        console.log(parsedData); // Handle the response data here
+        madewords=[];
+        for(let y=0;y<4;y++) {
+            for(let x=0;x<4;x++) {
+                madewords.push(parsedData[y].words[x]);
+            }
+        }
+        shuffle(madewords)
+        let i=0;
+        words.forEach(word => {
+            word.innerText=madewords[i];
+            i++
+        })
+    })
+    .catch(error => {
+        console.error('Error:', error); // Handle errors here
+    });
+} else {
+    console.log(localStorage.getItem("queuedconnections"))
+    parsedData = JSON.parse(localStorage.getItem("queuedconnections"))
+    console.log(parsedData); // Handle the response data here
+    madewords=[];
+    for(let y=0;y<4;y++) {
+        for(let x=0;x<4;x++) {
+            madewords.push(parsedData[y].words[x]);
+        }
+    }
+    shuffle(madewords)
+    let i=0;
+    words.forEach(word => {
+        word.innerText=madewords[i];
+        i++
+    })
+}
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
@@ -150,20 +221,8 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
 })
 .then(response => response.json())
 .then(data => {
-    parsedData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
-    console.log(parsedData); // Handle the response data here
-    madewords=[];
-    for(let y=0;y<4;y++) {
-        for(let x=0;x<4;x++) {
-            madewords.push(parsedData[y].words[x]);
-        }
-    }
-    shuffle(madewords)
-    let i=0;
-    words.forEach(word => {
-        word.innerText=madewords[i];
-        i++
-    })
+    nextData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
+    localStorage.setItem("queuedconnections", JSON.stringify(nextData));
 })
 .catch(error => {
     console.error('Error:', error); // Handle errors here
@@ -214,6 +273,95 @@ document.getElementById("shuffle").addEventListener("mousedown", function() {
         i++
     })
 })
+function showall() {
+
+    if (selected_count == 4) {
+        document.getElementById("submit").classList.add("disabledbutton");
+    }
+    words.forEach(word => {
+        if (word.classList.contains("selected")) {
+            word.classList.remove("selected");
+        }
+    });
+    selected_count = 0;
+    selected.clear();
+    let j=0;
+    let t=0;
+    console.log(foundareas)
+    console.log(parsedData)
+    foundareas.forEach(run => {
+        j++
+        
+        let myj = j.valueOf()
+        if (!run) {
+            t++
+            setTimeout(() => {
+            
+                parsedData.forEach(line=>{
+                    if (line.difficulty==myj) {
+                        console.log(line.words, line.theme)
+                        words = document.querySelectorAll(".word");
+                        setTimeout(() => {
+                            compline++
+                            lineele = document.getElementById("line"+compline.toString())
+                            lineele.classList.add("correctline")
+                            switch(line.difficulty) {
+                                case 1:
+                                lineele.id = "easy"
+                                break;
+                                case 2:
+                                    lineele.id = "medium"
+                                break;
+                                case 3:
+                                    lineele.id = "hard"
+                                break;
+                                case 4:
+                                    lineele.id = "veryhard"
+                                break;
+                            }
+                            lineele.innerHTML="<div class=\"themeheader\">"+line.theme+"</div><div class=\"commawords\">"+line.words.join(", ");
+                            words = document.querySelectorAll(".word");
+                            madewords=[];
+                            line.words.forEach(word => {
+                                notneededwords.push(word);
+                            })
+                            for(let y=0;y<4;y++) {
+                                for(let x=0;x<4;x++) {
+                                    if (!notneededwords.includes(parsedData[y].words[x])) {
+                                        madewords.push(parsedData[y].words[x]);
+                                    }
+                                    
+                                }
+                            }
+                            shuffle(madewords)
+                            let i=0;
+                            words.forEach(word => {
+                                word.innerText=madewords[i];
+                                i++
+                            })
+                            
+                        }, 400);
+                        words.forEach(word=>{
+                            
+                            if (line.words.includes(word.innerText.toLowerCase())) {
+                                word.classList.add("antic")
+                                setTimeout(() => {
+                                    word.classList.remove('antic');
+                                    word.classList.add('anticend');
+                                }, 300);
+                                setTimeout(() => {
+                                    word.classList.remove('anticend');
+                                }, 400);
+                                
+                            }
+                        })
+                    }
+                })
+            
+            }, 1100*(t-1))
+        }
+    })
+}
 document.getElementById("submit").addEventListener("mousedown", function() {
     if (!this.classList.contains("disabledbutton")) {
         this.classList.add('clicked');
@@ -242,7 +390,7 @@ document.getElementById("submit").addEventListener("mousedown", function() {
             document.getElementById(failed.toString()).classList.add("usedguess");
             failed++;
             if (failed==5) {
-                document.getElementById("overlay").classList.remove("invisible")
+                //document.getElementById("overlay").classList.remove("invisible")
             } else if (oneaway) {
                 document.getElementById("oneaway").classList.remove("invisible")
                 setTimeout(() => {
@@ -261,6 +409,7 @@ document.getElementById("submit").addEventListener("mousedown", function() {
             setTimeout(() => {
                 lineele = document.getElementById("line"+compline.toString())
                 lineele.classList.add("correctline")
+                foundareas[found.difficulty-1]=true
                 switch(found.difficulty) {
                     case 1:
                     lineele.id = "easy"
@@ -296,6 +445,11 @@ document.getElementById("submit").addEventListener("mousedown", function() {
             
             
         }
+        setTimeout(()=> {
+            if (failed==5) {
+                showall()
+            }
+        }, 800)
         words.forEach(word => {
             if (word.classList.contains("selected")) {
                 if (selected_count == 0) {
@@ -305,11 +459,13 @@ document.getElementById("submit").addEventListener("mousedown", function() {
                         word.classList.remove('antic');
                         word.classList.add('anticend');
                       }, 300);
+                      setTimeout(() => {
+                        word.classList.remove('anticend');
+                      }, 400);
                 } else {
                     word.classList.add("shake");
                     setTimeout(() => {
                         word.classList.remove('shake');
-                        
                       }, 800);
                 }
                 

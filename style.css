@@ -11,7 +11,7 @@
     word-wrap: break-word; /* Break words if too long */
     margin: 1px;
     margin-bottom: 4px;
-    background-color: #EFEFE6   ;
+    background-color: #EFEFE6;
     font-family: 'Nunito';
     cursor: pointer;
     font-weight: 500;
@@ -197,11 +197,15 @@
     
 }
 .antic {
+    background-color: #83837A;
+    color: white;
     transform: scale(0.9); /* Decrease size on click */
     transition: transform 0.3s ease;
     
 }
 .anticend {
+    background-color: #83837A;
+    color: white;
     transition: transform 0.1s ease-in;
     
 }
