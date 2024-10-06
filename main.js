@@ -42,20 +42,41 @@ function shuffle(array) {
   }
 function parseJsonTags(inputString) {
     console.log(inputString);
-    const jsonPattern = /<json>((.|\n)*)<\/json>/g;
+    
+    // Regular expression to match <json>...</json>
+    const jsonPattern = /<json>((.|\n)*?)<\/json>/g;
     let matches;
-    matches = jsonPattern.exec(inputString) 
-    const jsonString = matches[1];
-    console.log(jsonString)
-    const jsonObject = JSON.parse(jsonString);
+    let lastMatch = null;
 
-    return jsonObject;
+    // Iterate through all matches and store the last one
+    while ((matches = jsonPattern.exec(inputString)) !== null) {
+        lastMatch = matches;
+    }
+
+    if (lastMatch) {
+        const jsonString = lastMatch[1];
+        console.log(jsonString);
+        const jsonObject = JSON.parse(jsonString);
+
+        return jsonObject;
+    } else {
+        throw new Error("No <json> tags found");
+    }
 }
 
 // Example usage:
 words.forEach(word => {
     word.innerText = "Loading...";
     word.addEventListener("click", function() {
+        this.classList.add('clicked');
+
+        // Remove the 'clicked' class after 0.3s to allow for future clicks
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 100);
+        if (selected_count == 4) {
+            document.getElementById("submit").classList.add("disabledbutton");
+        }
         if (this.classList.contains("selected")) {
             selected.delete(this.innerText.toLowerCase())
             console.log(selected)
@@ -106,7 +127,7 @@ Easy-Medium (2): Slightly more complex themes, requiring deeper connections. mak
 Medium-Hard (3): Themes that introduce multiple definitions or cultural references. make it based on the word "`+word3+`
 Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`
 don't make the themes just be the words, be a little clever
-Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary. only put your FINAL output in json tags, multiple json tags WILL cause errors`
+Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary. only put your FINAL output in json tags, multiple json tags WILL cause errors. State your thought process BEFORE your output`
         }
     ],
     temperature: 0.8
@@ -143,6 +164,12 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
 
 document.getElementById("deselect").addEventListener("click", function() {
     if (!this.classList.contains("disabledbutton")) {
+        this.classList.add('clicked');
+
+        // Remove the 'clicked' class after 0.3s to allow for future clicks
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 100);
         if (selected_count == 4) {
             document.getElementById("submit").classList.add("disabledbutton");
         }
@@ -156,8 +183,38 @@ document.getElementById("deselect").addEventListener("click", function() {
         selected.clear();
     }
 });
+document.getElementById("shuffle").addEventListener("click", function() {
+    words = document.querySelectorAll(".word");
+    this.classList.add('clicked');
+
+      // Remove the 'clicked' class after 0.3s to allow for future clicks
+      setTimeout(() => {
+        this.classList.remove('clicked');
+      }, 100);
+    madewords=[];
+    for(let y=0;y<4;y++) {
+        for(let x=0;x<4;x++) {
+            if (!notneededwords.includes(parsedData[y].words[x])) {
+                madewords.push(parsedData[y].words[x]);
+            }
+            
+        }
+    }
+    shuffle(madewords)
+    let i=0;
+    words.forEach(word => {
+        word.innerText=madewords[i];
+        i++
+    })
+})
 document.getElementById("submit").addEventListener("click", function() {
     if (!this.classList.contains("disabledbutton")) {
+        this.classList.add('clicked');
+
+        // Remove the 'clicked' class after 0.3s to allow for future clicks
+        setTimeout(() => {
+            this.classList.remove('clicked');
+        }, 100);
         let works=false
         let found={}
         let oneaway = false

@@ -15,8 +15,10 @@
     cursor: pointer;
     font-weight: 500;
     text-transform: capitalize;
+    transition: transform 0.2s ease;
 }
 .button {
+    display: inline-block;
     font-family: 'Nunito';
     cursor: pointer;
     font-weight: 500;
@@ -28,6 +30,24 @@
     padding-bottom: 7px;
     margin-right: 2px;
     margin-left: 2px;
+    transition: transform 0.2s ease;
+}
+.button:not(.disabledbutton):hover {
+    transform: scale(1.1); /* Increase size on hover */
+    transition: transform 0.2s ease;
+}
+.word:hover {
+    transform: scale(1.1); /* Increase size on hover */
+    transition: transform 0.2s ease;
+}
+.clicked {
+    transform: scale(0.95); /* Decrease size on click */
+    transition: transform 0.1s ease;
+    
+}
+.clicked:hover {
+    transform: scale(0.95); /* Decrease size on click */
+    transition: transform 0.1s ease;
     
 }
 .disabledbutton {
