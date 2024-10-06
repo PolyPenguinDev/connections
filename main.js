@@ -67,13 +67,8 @@ function parseJsonTags(inputString) {
 // Example usage:
 words.forEach(word => {
     word.innerText = "Loading...";
-    word.addEventListener("click", function() {
-        this.classList.add('clicked');
-
-        // Remove the 'clicked' class after 0.3s to allow for future clicks
-        setTimeout(() => {
-            this.classList.remove('clicked');
-        }, 100);
+    word.addEventListener("mousedown", function() {
+        
         if (selected_count == 4) {
             document.getElementById("submit").classList.add("disabledbutton");
         }
@@ -88,6 +83,12 @@ words.forEach(word => {
             if (selected_count == 0) {
                 document.getElementById("deselect").classList.add("disabledbutton");
             }
+            this.classList.add('clicked');
+
+            // Remove the 'clicked' class after 0.3s to allow for future clicks
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 100);
         } else {
             if (selected_count < 4) {
                 this.classList.add("selected");
@@ -97,6 +98,12 @@ words.forEach(word => {
                 if (selected_count == 1) {
                     document.getElementById("deselect").classList.remove("disabledbutton");
                 }
+                this.classList.add('clicked');
+
+                // Remove the 'clicked' class after 0.3s to allow for future clicks
+                setTimeout(() => {
+                    this.classList.remove('clicked');
+                }, 100);
             }
             if (selected_count == 4) {
                 document.getElementById("submit").classList.remove("disabledbutton");
@@ -162,7 +169,7 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
     console.error('Error:', error); // Handle errors here
 });
 
-document.getElementById("deselect").addEventListener("click", function() {
+document.getElementById("deselect").addEventListener("mousedown", function() {
     if (!this.classList.contains("disabledbutton")) {
         this.classList.add('clicked');
 
@@ -183,7 +190,7 @@ document.getElementById("deselect").addEventListener("click", function() {
         selected.clear();
     }
 });
-document.getElementById("shuffle").addEventListener("click", function() {
+document.getElementById("shuffle").addEventListener("mousedown", function() {
     words = document.querySelectorAll(".word");
     this.classList.add('clicked');
 
@@ -207,7 +214,7 @@ document.getElementById("shuffle").addEventListener("click", function() {
         i++
     })
 })
-document.getElementById("submit").addEventListener("click", function() {
+document.getElementById("submit").addEventListener("mousedown", function() {
     if (!this.classList.contains("disabledbutton")) {
         this.classList.add('clicked');
 
@@ -243,56 +250,74 @@ document.getElementById("submit").addEventListener("click", function() {
                 }, 2000);
             }
         } else {
+            selected_count = 0;
+            selected.clear();
+            document.getElementById("deselect").classList.add("disabledbutton")
+            this.classList.add("disabledbutton")
             found.words.forEach(word => {
                 notneededwords.push(word);
             })
             compline++
-            lineele = document.getElementById("line"+compline.toString())
-            lineele.classList.add("correctline")
-            switch(found.difficulty) {
-                case 1:
-                  lineele.id = "easy"
-                  break;
-                case 2:
-                    lineele.id = "medium"
-                  break;
-                case 3:
-                    lineele.id = "hard"
-                  break;
-                case 4:
-                    lineele.id = "veryhard"
-                  break;
-            }
-            lineele.innerHTML="<div class=\"themeheader\">"+found.theme+"</div><div class=\"commawords\">"+found.words.join(", ");
-            words = document.querySelectorAll(".word");
-            madewords=[];
-            for(let y=0;y<4;y++) {
-                for(let x=0;x<4;x++) {
-                    if (!notneededwords.includes(parsedData[y].words[x])) {
-                        madewords.push(parsedData[y].words[x]);
-                    }
-                    
+            setTimeout(() => {
+                lineele = document.getElementById("line"+compline.toString())
+                lineele.classList.add("correctline")
+                switch(found.difficulty) {
+                    case 1:
+                    lineele.id = "easy"
+                    break;
+                    case 2:
+                        lineele.id = "medium"
+                    break;
+                    case 3:
+                        lineele.id = "hard"
+                    break;
+                    case 4:
+                        lineele.id = "veryhard"
+                    break;
                 }
-            }
-            shuffle(madewords)
-            let i=0;
-            words.forEach(word => {
-                word.innerText=madewords[i];
-                i++
-            })
+                lineele.innerHTML="<div class=\"themeheader\">"+found.theme+"</div><div class=\"commawords\">"+found.words.join(", ");
+                words = document.querySelectorAll(".word");
+                madewords=[];
+                for(let y=0;y<4;y++) {
+                    for(let x=0;x<4;x++) {
+                        if (!notneededwords.includes(parsedData[y].words[x])) {
+                            madewords.push(parsedData[y].words[x]);
+                        }
+                        
+                    }
+                }
+                shuffle(madewords)
+                let i=0;
+                words.forEach(word => {
+                    word.innerText=madewords[i];
+                    i++
+                })
+            }, 400);
             
-        }
-        if (selected_count == 4) {
-            document.getElementById("submit").classList.add("disabledbutton");
+            
         }
         words.forEach(word => {
             if (word.classList.contains("selected")) {
-                word.classList.remove("selected");
+                if (selected_count == 0) {
+                    word.classList.remove("selected")
+                    word.classList.add("antic")
+                    setTimeout(() => {
+                        word.classList.remove('antic');
+                        word.classList.add('anticend');
+                      }, 300);
+                } else {
+                    word.classList.add("shake");
+                    setTimeout(() => {
+                        word.classList.remove('shake');
+                        
+                      }, 800);
+                }
+                
             }
+            
         });
-        this.classList.add("disabledbutton");
-        selected_count = 0;
-        selected.clear();
+
+        
         
     }
 });
