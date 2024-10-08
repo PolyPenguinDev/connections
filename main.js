@@ -129,7 +129,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     const deepInfraToken = ""; // Make sure to set your token in environment variables
 
     const requestData = {
-        model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
+        model: "meta-llama/Meta-Llama-3.1-8b-Instruct",
         messages: [
             {
                 role: "user",
@@ -202,7 +202,7 @@ const word4 = nouns[Math.floor(Math.random() * nouns.length)];
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
-    model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    model: "meta-llama/Meta-Llama-3.1-8b-Instruct",
     messages: [
         {
             role: "user",
