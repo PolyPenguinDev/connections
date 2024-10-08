@@ -1,11 +1,11 @@
 let words = document.querySelectorAll(".word");
-let selected_count = 0;
-let selected = new Set();
-let parsedData = []
-let failed=1;
-let compline = 0;
-let notneededwords = [];
-let foundareas= [false, false, false, false]
+var selected_count = 0;
+var selected = new Set();
+var parsedData = []
+var failed=1;
+var compline = 0;
+var notneededwords = [];
+var foundareas= [false, false, false, false]
 function logToDebugger(message) {
     let dubugconsole = document.getElementById("console")
     if (dubugconsole.innerText=="") {
@@ -386,7 +386,7 @@ document.getElementById("debug").addEventListener("mousedown", function() {
 })
 document.getElementById("submit").addEventListener("mousedown", function() {
     try {
-        logToDebugger(selected.toString())
+        logToDebugger(selected.type)
         if (!this.classList.contains("disabledbutton")) {
             this.classList.add('clicked');
 
