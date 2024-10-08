@@ -129,7 +129,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     const deepInfraToken = ""; // Make sure to set your token in environment variables
 
     const requestData = {
-        model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
         messages: [
             {
                 role: "user",
@@ -161,7 +161,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     .then(response => response.json())
     .then(data => {
         parsedData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
-        logToDebugger(parsedData.toString())
+        logToDebugger(parsedData[0].toString()+"\n"+parsedData[1].toString()+"\n"+parsedData[2].toString()+"\n"+parsedData[3].toString())
         madewords=[];
         for(let y=0;y<4;y++) {
             for(let x=0;x<4;x++) {
@@ -180,7 +180,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     });
 } else {
     parsedData = JSON.parse(localStorage.getItem("queuedconnections"))
-    logToDebugger(parsedData.toString())
+    logToDebugger(parsedData[0].toString()+"\n"+parsedData[1].toString()+"\n"+parsedData[2].toString()+"\n"+parsedData[3].toString())
     madewords=[];
     for(let y=0;y<4;y++) {
         for(let x=0;x<4;x++) {
@@ -202,7 +202,7 @@ const word4 = nouns[Math.floor(Math.random() * nouns.length)];
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
-    model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    model: "meta-llama/Meta-Llama-3.1-70B-Instruct",
     messages: [
         {
             role: "user",
