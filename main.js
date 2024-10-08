@@ -6,6 +6,16 @@ let failed=1;
 let compline = 0;
 let notneededwords = [];
 let foundareas= [false, false, false, false]
+function logToDebugger(message) {
+    let dubugconsole = document.getElementById("console")
+    if (dubugconsole.innerText=="") {
+        dubugconsole.innerText=message 
+    } else {
+        dubugconsole.innerText=dubugconsole.innerText+"\n\n"+message 
+    }
+    
+}
+logToDebugger("app started!")
 function isOneElementDifferent(set1, set2) {
     // Check if the sets have the same size + 1
     if (set1.size !== set2.size && set1.size + 1 !== set2.size && set2.size + 1 !== set1.size) {
@@ -118,7 +128,6 @@ if (localStorage.getItem("queuedconnections")==null) {
     const word2 = nouns[Math.floor(Math.random() * nouns.length)];
     const word3 = nouns[Math.floor(Math.random() * nouns.length)];
     const word4 = nouns[Math.floor(Math.random() * nouns.length)];
-    console.log(word1, word2, word3, word4)
     const deepInfraToken = ""; // Make sure to set your token in environment variables
 
     const requestData = {
@@ -154,7 +163,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     .then(response => response.json())
     .then(data => {
         parsedData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
-        console.log(parsedData); // Handle the response data here
+        logToDebugger(parsedData.toString())
         madewords=[];
         for(let y=0;y<4;y++) {
             for(let x=0;x<4;x++) {
@@ -172,9 +181,8 @@ if (localStorage.getItem("queuedconnections")==null) {
         console.error('Error:', error); // Handle errors here
     });
 } else {
-    console.log(localStorage.getItem("queuedconnections"))
     parsedData = JSON.parse(localStorage.getItem("queuedconnections"))
-    console.log(parsedData); // Handle the response data here
+    logToDebugger(parsedData.toString())
     madewords=[];
     for(let y=0;y<4;y++) {
         for(let x=0;x<4;x++) {
@@ -192,7 +200,7 @@ const word1 = nouns[Math.floor(Math.random() * nouns.length)];
 const word2 = nouns[Math.floor(Math.random() * nouns.length)];
 const word3 = nouns[Math.floor(Math.random() * nouns.length)];
 const word4 = nouns[Math.floor(Math.random() * nouns.length)];
-console.log(word1, word2, word3, word4)
+
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
@@ -368,118 +376,130 @@ function showall() {
         }
     })
 }
+document.getElementById("debug").addEventListener("mousedown", function() {
+    this.classList.add('clicked');
+    document.getElementById("console").classList.toggle("invisible")
+    // Remove the 'clicked' class after 0.3s to allow for future clicks
+    setTimeout(() => {
+        this.classList.remove('clicked');
+    }, 100);
+})
 document.getElementById("submit").addEventListener("mousedown", function() {
-    if (!this.classList.contains("disabledbutton")) {
-        this.classList.add('clicked');
+    try {
+        if (!this.classList.contains("disabledbutton")) {
+            this.classList.add('clicked');
 
-        // Remove the 'clicked' class after 0.3s to allow for future clicks
-        setTimeout(() => {
-            this.classList.remove('clicked');
-        }, 100);
-        let works=false
-        let found={}
-        let oneaway = false
-        parsedData.forEach(line => {
-            linewords = new Set(line.words);
-            console.log(linewords, selected)
-            if (!works) {
-                if (!oneaway) {
-                    oneaway = isOneElementDifferent(linewords, selected)
-                }
-                works= linewords.size == selected.size && selected.isSubsetOf(linewords);
-                if (works) {
-                    found = line;
-                }
-            }
-        })
-        if (!works) {
-            document.getElementById(failed.toString()).classList.add("usedguess");
-            failed++;
-            if (failed==5) {
-                //document.getElementById("overlay").classList.remove("invisible")
-            } else if (oneaway) {
-                document.getElementById("oneaway").classList.remove("invisible")
-                setTimeout(() => {
-                    document.getElementById("oneaway").classList.add("invisible")
-                }, 800);
-            }
-        } else {
-            selected_count = 0;
-            selected.clear();
-            document.getElementById("deselect").classList.add("disabledbutton")
-            this.classList.add("disabledbutton")
-            found.words.forEach(word => {
-                notneededwords.push(word);
-            })
-            compline++
+            // Remove the 'clicked' class after 0.3s to allow for future clicks
             setTimeout(() => {
-                lineele = document.getElementById("line"+compline.toString())
-                lineele.classList.add("correctline")
-                foundareas[found.difficulty-1]=true
-                switch(found.difficulty) {
-                    case 1:
-                    lineele.id = "easy"
-                    break;
-                    case 2:
-                        lineele.id = "medium"
-                    break;
-                    case 3:
-                        lineele.id = "hard"
-                    break;
-                    case 4:
-                        lineele.id = "veryhard"
-                    break;
-                }
-                lineele.innerHTML="<div class=\"themeheader\">"+found.theme+"</div><div class=\"commawords\">"+found.words.join(", ");
-                words = document.querySelectorAll(".word");
-                madewords=[];
-                for(let y=0;y<4;y++) {
-                    for(let x=0;x<4;x++) {
-                        if (!notneededwords.includes(parsedData[y].words[x])) {
-                            madewords.push(parsedData[y].words[x]);
-                        }
-                        
+                this.classList.remove('clicked');
+            }, 100);
+            let works=false
+            let found={}
+            let oneaway = false
+            parsedData.forEach(line => {
+                linewords = new Set(line.words);
+                console.log(linewords, selected)
+                if (!works) {
+                    if (!oneaway) {
+                        oneaway = isOneElementDifferent(linewords, selected)
+                    }
+                    works= linewords.size == selected.size && selected.isSubsetOf(linewords);
+                    if (works) {
+                        found = line;
                     }
                 }
-                shuffle(madewords)
-                let i=0;
-                words.forEach(word => {
-                    word.innerText=madewords[i];
-                    i++
+            })
+            if (!works) {
+                document.getElementById(failed.toString()).classList.add("usedguess");
+                failed++;
+                if (failed==5) {
+                    //document.getElementById("overlay").classList.remove("invisible")
+                } else if (oneaway) {
+                    document.getElementById("oneaway").classList.remove("invisible")
+                    setTimeout(() => {
+                        document.getElementById("oneaway").classList.add("invisible")
+                    }, 800);
+                }
+            } else {
+                selected_count = 0;
+                selected.clear();
+                document.getElementById("deselect").classList.add("disabledbutton")
+                this.classList.add("disabledbutton")
+                found.words.forEach(word => {
+                    notneededwords.push(word);
                 })
-            }, 400);
+                compline++
+                setTimeout(() => {
+                    lineele = document.getElementById("line"+compline.toString())
+                    lineele.classList.add("correctline")
+                    foundareas[found.difficulty-1]=true
+                    switch(found.difficulty) {
+                        case 1:
+                        lineele.id = "easy"
+                        break;
+                        case 2:
+                            lineele.id = "medium"
+                        break;
+                        case 3:
+                            lineele.id = "hard"
+                        break;
+                        case 4:
+                            lineele.id = "veryhard"
+                        break;
+                    }
+                    lineele.innerHTML="<div class=\"themeheader\">"+found.theme+"</div><div class=\"commawords\">"+found.words.join(", ");
+                    words = document.querySelectorAll(".word");
+                    madewords=[];
+                    for(let y=0;y<4;y++) {
+                        for(let x=0;x<4;x++) {
+                            if (!notneededwords.includes(parsedData[y].words[x])) {
+                                madewords.push(parsedData[y].words[x]);
+                            }
+                            
+                        }
+                    }
+                    shuffle(madewords)
+                    let i=0;
+                    words.forEach(word => {
+                        word.innerText=madewords[i];
+                        i++
+                    })
+                }, 400);
+                
+                
+            }
+            setTimeout(()=> {
+                if (failed==5) {
+                    showall()
+                }
+            }, 800)
+            words.forEach(word => {
+                if (word.classList.contains("selected")) {
+                    if (selected_count == 0) {
+                        word.classList.remove("selected")
+                        word.classList.add("antic")
+                        setTimeout(() => {
+                            word.classList.remove('antic');
+                            word.classList.add('anticend');
+                        }, 300);
+                        setTimeout(() => {
+                            word.classList.remove('anticend');
+                        }, 400);
+                    } else {
+                        word.classList.add("shake");
+                        setTimeout(() => {
+                            word.classList.remove('shake');
+                        }, 800);
+                    }
+                    
+                }
+                
+            });
+
             
             
         }
-        setTimeout(()=> {
-            if (failed==5) {
-                showall()
-            }
-        }, 800)
-        words.forEach(word => {
-            if (word.classList.contains("selected")) {
-                if (selected_count == 0) {
-                    word.classList.remove("selected")
-                    word.classList.add("antic")
-                    setTimeout(() => {
-                        word.classList.remove('antic');
-                        word.classList.add('anticend');
-                      }, 300);
-                      setTimeout(() => {
-                        word.classList.remove('anticend');
-                      }, 400);
-                } else {
-                    word.classList.add("shake");
-                    setTimeout(() => {
-                        word.classList.remove('shake');
-                      }, 800);
-                }
-                
-            }
-            
-        });
-
-        
-        
+    } catch(error) {
+        logToDebugger("ERROR: "+error)
     }
-});
+})

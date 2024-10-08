@@ -18,15 +18,46 @@
     text-transform: capitalize;
     transition: transform 0.2s ease;
 }
-
-
-  @keyframes shake-animation {
+#console {
+    font-family: "Nunito";
+    position: fixed;
+    top: 10%;
+    left: 85%;
+    color: black;
+    font-size: 0.8125em;
+    text-align: center;
+    width: 15em;
+    height: 100%;
+    display: flex;
+    align-items: left;
+    border: none;
+}
+#debug {
+    font-family: "Nunito";
+    position: fixed;
+    top: 1%;
+    left: 95%;
+    color: white;
+    font-size: 0.8125em;
+    background-color: white;
+    text-align: center;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+@keyframes shake-animation {
     0% { transform: translateX(0); }
     25% { transform: translateX(-0.34375em); }
     50% { transform: translateX(0.34375em); }
     75% { transform: translateX(-0.34375em); }
     100% { transform: translateX(0); }
   }
+svg {
+    display: flex;
+}
 .button {
     display: inline-block;
     font-family: 'Nunito';
@@ -56,6 +87,7 @@
     border: 0.0625em solid grey;
     color: grey;
 }
+
 .guessdisplay {
     font-family: 'Nunito';
     font-weight: 500;
