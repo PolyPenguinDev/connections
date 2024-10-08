@@ -6,13 +6,16 @@ var failed=1;
 var compline = 0;
 var notneededwords = [];
 var foundareas= [false, false, false, false]
+var log = "";
 function logToDebugger(message) {
     let dubugconsole = document.getElementById("console")
-    if (dubugconsole.innerText=="") {
-        dubugconsole.innerText=message 
+    if (log=="") {
+        log = message
+        
     } else {
-        dubugconsole.innerText=dubugconsole.innerText+"\n\n"+message 
+        log+="\n\n"+message 
     }
+    dubugconsole.innerText=log
     
 }
 logToDebugger("app started!")
