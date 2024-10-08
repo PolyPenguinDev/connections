@@ -501,6 +501,6 @@ document.getElementById("submit").addEventListener("mousedown", function() {
             
         }
     } catch(error) {
-        logToDebugger("ERROR: "+error)
+        logToDebugger("ERROR: "+error+" (line #"+error.lineNumber+")"))
     }
 })
