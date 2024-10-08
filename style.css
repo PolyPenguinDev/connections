@@ -1,16 +1,18 @@
-
+body {
+    font-size: 1.17vw;
+}
 .word {
-    width: 6.25em; /* Set fixed width */
-    height: 6.25em; /* Set fixed height */
-    border-radius: 0.9375em;
+    width: 7.32vw; /* Set fixed width */
+    height: 7.32vw; /* Set fixed height */
+    border-radius: 1.17vw;
     display: inline-flex; /* Flexbox to center text */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     text-align: center; /* Align text to center */
     overflow: hidden; /* Hide overflow if the text is too long */
     word-wrap: break-word; /* Break words if too long */
-    margin: 0.0625em;
-    margin-bottom: 0.25em;
+    margin: 0.07vw;
+    margin-bottom: 0.29vw;
     background-color: #EFEFE6;
     font-family: 'Nunito';
     cursor: pointer;
@@ -50,9 +52,9 @@
 }
 @keyframes shake-animation {
     0% { transform: translateX(0); }
-    25% { transform: translateX(-0.34375em); }
-    50% { transform: translateX(0.34375em); }
-    75% { transform: translateX(-0.34375em); }
+    25% { transform: translateX(-0.40vw); }
+    50% { transform: translateX(0.40vw); }
+    75% { transform: translateX(-0.40vw); }
     100% { transform: translateX(0); }
   }
 svg {
@@ -63,14 +65,14 @@ svg {
     font-family: 'Nunito';
     cursor: pointer;
     font-weight: 500;
-    border: 0.0625em solid black;
-    border-radius: 6.25em;
-    padding-left: 0.625em;
-    padding-right: 0.625em;
-    padding-top: 0.4375em;
-    padding-bottom: 0.4375em;
-    margin-right: 0.125em;
-    margin-left: 0.125em;
+    border: 0.07vw solid black;
+    border-radius: 7.32vw;
+    padding-left: 0.73vw;
+    padding-right: 0.73vw;
+    padding-top: 0.51vw;
+    padding-bottom: 0.51vw;
+    margin-right: 0.15vw;
+    margin-left: 0.15vw;
     transition: transform 0.2s ease;
 }
 .button:not(.disabledbutton):not(.clicked):hover {
@@ -84,7 +86,7 @@ svg {
 
 .disabledbutton {
     cursor: default;
-    border: 0.0625em solid grey;
+    border: 0.07vw solid grey;
     color: grey;
 }
 
@@ -98,14 +100,14 @@ svg {
 
 .circle {
     display: inline-block;
-    width: 0.8125em;
-    height: 0.8125em;
+    width: 0.95vw;
+    height: 0.95vw;
     background-color: #5A594E;
     border-radius: 50%;
     vertical-align: middle; /* Aligns the circle with the text */
     margin: 0; /* Removes any margin between circles */
     padding: 0; /* Removes any padding between circles */
-    margin-left: 0.25em;
+    margin-left: 0.29vw;
 }
 
 .usedguess {
@@ -116,9 +118,9 @@ svg {
     color: white;
 }
 .correctline {
-    width: 26.125em;
-    height: 6.25em; /* Allow height to adjust based on content */
-    border-radius: 0.9375em;
+    width: 30.62vw;
+    height: 7.32vw; /* Allow height to adjust based on content */
+    border-radius: 1.17vw;
     display: flex;
     flex-direction: column; /* Arrange children in a column */
     justify-content: center;
@@ -126,13 +128,13 @@ svg {
     text-align: center;
     overflow: hidden;
     word-wrap: break-word;
-    margin: 0.0625em;
-    margin-bottom: 0.25em;
+    margin: 0.07vw;
+    margin-bottom: 0.29vw;
     background-color: #EFEFE6;
     font-family: 'Nunito';
     font-weight: 500;
     text-transform: capitalize;
-    margin-left: calc(50vw - 210.4375em);
+    margin-left: 34.1vw;
     animation: scaleUp 0.5s ease; /* Animation settings */
 }
 
@@ -164,7 +166,7 @@ svg {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
-    margin-top: 1.5625em;
+    margin-top: 1.83vw;
 }
 .wordcontainer {
     text-align: center;
@@ -173,8 +175,11 @@ svg {
     user-select: none; /* Standard syntax */
 }
 .guessdisplay {
-    margin-top: 0.625em;
-    margin-bottom: 0.625em;
+    margin-top: 0.73vw;
+    margin-bottom: 0.73vw;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 .themeheader {
     font-weight: 700;
@@ -182,38 +187,20 @@ svg {
 .invisible {
     visibility: hidden;
   }
-#overlay {
-    font-family: "Nunito";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7); /* optional background */
-    color: white;
-    font-size: 5em;
-    padding: 20px;
-    text-align: center;
-    z-index: 1000; /* ensures it's above other elements */
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 #oneaway {
     font-family: "Nunito";
     position: fixed;
     top: 50%;
     left: 50%;
-    border-radius: 0.625em;
+    border-radius: 0.73vw;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 1); /* optional background */
     color: white;
-    font-size: 0.8125em;
+    font-size: 0.95vw;
     text-align: center;
     z-index: 1000; /* ensures it's above other elements */
-    width: 5.625em;
-    height: 2.5em;
+    width: 6.59vw;
+    height: 2.93vw;
     display: flex;
     align-items: center;
     justify-content: center;
