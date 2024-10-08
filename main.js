@@ -129,22 +129,24 @@ if (localStorage.getItem("queuedconnections")==null) {
     const deepInfraToken = ""; // Make sure to set your token in environment variables
 
     const requestData = {
-        model: "meta-llama/Meta-Llama-3.1-8b-Instruct",
+        model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
         messages: [
             {
                 role: "user",
-                content: `Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should be ambiguous enough that they could be mistaken for belonging to the same list, even though they don’t actually share a common theme. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Avoid repeating words within the lists.
+                content: `You are creating a custom new york times connections game. Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should seem like they fit together, but they actually don’t. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Only use each word one.
 
-    The themes for each group should be crafted to be relatively challenging, aiming for complexity without straying too far from words that a middle schooler would know. Consider using words with multiple definitions or meanings, which could further enhance the ambiguity between the lists.
+    The words should not be complex or difficult words, as that is not the point of the puzzle
 
-    The difficulty levels should not simply rely on harder vocabulary but should also involve more intricate or layered themes. Each level should be defined as follows:
+    The difficulty levels should not simply rely on harder vocabulary but should also involve harder themes. Each level should be defined as follows:
 
-    Easy (1): Basic themes with familiar words. make it based on the word "`+word1+`
-    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`
-    Medium-Hard (3): Themes that introduce multiple definitions or cultural references. make it based on the word "`+word3+`
-    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`
-    don't make the themes just be the words, be a little clever
-    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary. only put your FINAL output in json tags, multiple json tags WILL cause errors. State your thought process BEFORE your output`
+    Easy (1): Basic themes with familiar words with multiple definitions. make it based on the word "`+word1+`”
+    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`”
+    Medium-Hard (3): Themes with multiple definitions or harder references. make it based on the word "`+word3+`”
+    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`”
+    don't make the themes just be the words, be a little clever.
+Make sure all the words make sense within their themes
+    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary.
+`
             }
         ],
         temperature: 0.8
@@ -161,7 +163,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     .then(response => response.json())
     .then(data => {
         parsedData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
-        logToDebugger(parsedData[0].toString()+"\n"+parsedData[1].toString()+"\n"+parsedData[2].toString()+"\n"+parsedData[3].toString())
+        logToDebugger(parsedData[0].words.toString()+"\n"+parsedData[1].words.toString()+"\n"+parsedData[2].words.toString()+"\n"+parsedData[3].words.toString())
         madewords=[];
         for(let y=0;y<4;y++) {
             for(let x=0;x<4;x++) {
@@ -180,7 +182,7 @@ if (localStorage.getItem("queuedconnections")==null) {
     });
 } else {
     parsedData = JSON.parse(localStorage.getItem("queuedconnections"))
-    logToDebugger(parsedData[0].toString()+"\n"+parsedData[1].toString()+"\n"+parsedData[2].toString()+"\n"+parsedData[3].toString())
+    logToDebugger(parsedData[0].words.toString()+"\n"+parsedData[1].words.toString()+"\n"+parsedData[2].words.toString()+"\n"+parsedData[3].words.toString())
     madewords=[];
     for(let y=0;y<4;y++) {
         for(let x=0;x<4;x++) {
@@ -202,23 +204,24 @@ const word4 = nouns[Math.floor(Math.random() * nouns.length)];
 const deepInfraToken = ""; // Make sure to set your token in environment variables
 
 const requestData = {
-    model: "meta-llama/Meta-Llama-3.1-8b-Instruct",
+    model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
     messages: [
         {
             role: "user",
-            content: `Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should be ambiguous enough that they could be mistaken for belonging to the same list, even though they don’t actually share a common theme. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Avoid repeating words within the lists.
+            content: `You are creating a custom new york times connections game. Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should seem like they fit together, but they actually don’t. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Only use each word one.
 
-The themes for each group should be crafted to be relatively challenging, aiming for complexity without straying too far from words that a middle schooler would know. Consider using words with multiple definitions or meanings, which could further enhance the ambiguity between the lists.
+    The words should not be complex or difficult words, as that is not the point of the puzzle
 
-The difficulty levels should not simply rely on harder vocabulary but should also involve more intricate or layered themes. Each level should be defined as follows:
+    The difficulty levels should not simply rely on harder vocabulary but should also involve harder themes. Each level should be defined as follows:
 
-Easy (1): Basic themes with familiar words. make it based on the word "`+word1+`
-Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`
-Medium-Hard (3): Themes that introduce multiple definitions or cultural references. make it based on the word "`+word3+`
-Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`
-don't make the themes just be the words, be a little clever
-Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary. only put your FINAL output in json tags, multiple json tags WILL cause errors. State your thought process BEFORE your output`
-        }
+    Easy (1): Basic themes with familiar words with multiple definitions. make it based on the word "`+word1+`”
+    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`”
+    Medium-Hard (3): Themes with multiple definitions or harder references. make it based on the word "`+word3+`”
+    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`”
+    don't make the themes just be the words, be a little clever.
+Make sure all the words make sense within their themes
+    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary.
+`        }
     ],
     temperature: 0.8
 };
