@@ -386,7 +386,7 @@ document.getElementById("debug").addEventListener("mousedown", function() {
 })
 document.getElementById("submit").addEventListener("mousedown", function() {
     try {
-        logToDebugger(selected.type)
+        logToDebugger(Array.from(selected))
         if (!this.classList.contains("disabledbutton")) {
             this.classList.add('clicked');
 
