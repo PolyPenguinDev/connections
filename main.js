@@ -386,6 +386,7 @@ document.getElementById("debug").addEventListener("mousedown", function() {
 })
 document.getElementById("submit").addEventListener("mousedown", function() {
     try {
+        logToDebugger(selected.toString())
         if (!this.classList.contains("disabledbutton")) {
             this.classList.add('clicked');
 
@@ -397,6 +398,7 @@ document.getElementById("submit").addEventListener("mousedown", function() {
             let found={}
             let oneaway = false
             parsedData.forEach(line => {
+                
                 linewords = new Set(line.words);
                 console.log(linewords, selected)
                 if (!works) {
