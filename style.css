@@ -24,14 +24,14 @@ body {
     font-family: "Nunito";
     position: fixed;
     top: 10%;
-    left: 85%;
+    left: 83%;
     color: black;
     font-size: 0.8125em;
-    text-align: center;
+    text-align: right;
     width: 15em;
     height: 100%;
     display: flex;
-    align-items: left;
+    align-items: start;
     border: none;
 }
 #debug {
