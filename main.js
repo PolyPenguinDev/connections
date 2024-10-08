@@ -235,6 +235,7 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
 .then(data => {
     nextData = parseJsonTags(data["choices"][0]["message"]["content"].toLowerCase());
     localStorage.setItem("queuedconnections", JSON.stringify(nextData));
+    logToDebugger("next one generated!")
 })
 .catch(error => {
     console.error('Error:', error); // Handle errors here
