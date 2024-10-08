@@ -16,7 +16,7 @@ function logToDebugger(message) {
     
 }
 logToDebugger("app started!")
-function isOneElementDifferent(set1, set2) {
+function getDifferentCount(set1, set2) {
     // Check if the sets have the same size + 1
     if (set1.size !== set2.size && set1.size + 1 !== set2.size && set2.size + 1 !== set1.size) {
         return false;
@@ -34,7 +34,7 @@ function isOneElementDifferent(set1, set2) {
         }
     }
 
-    return differenceCount === 1; // True if exactly one element is different
+    return differenceCount; // True if exactly one element is different
 }
 function shuffle(array) {
     let currentIndex = array.length;
@@ -402,9 +402,9 @@ document.getElementById("submit").addEventListener("mousedown", function() {
                 console.log(linewords, selected)
                 if (!works) {
                     if (!oneaway) {
-                        oneaway = isOneElementDifferent(linewords, selected)
+                        oneaway = getDifferentCount(linewords, selected)===1
                     }
-                    works= linewords.size == selected.size && selected.isSubsetOf(linewords);
+                    works= getDifferentCount(linewords, selected)===0
                     if (works) {
                         found = line;
                     }
