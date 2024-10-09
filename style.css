@@ -2,15 +2,14 @@ body {
     font-size: 1.17vw;
 }
 .word {
-    width: 7.32vw; /* Set fixed width */
-    height: 7.32vw; /* Set fixed height */
+    padding: 0.75vw;
+    width: 5.57vw; /* Set fixed width */
+    height: 5.57vw; /* Set fixed height */
     border-radius: 1.17vw;
-    display: inline-flex; /* Flexbox to center text */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    text-align: center; /* Align text to center */
+    display: inline-block; /* Flexbox to center text */
+    align-content: center; /* Center horizontally */
     overflow: hidden; /* Hide overflow if the text is too long */
-    word-wrap: break-word; /* Break words if too long */
+    /*word-wrap: break-word; /* Break words if too long */
     margin: 0.07vw;
     margin-bottom: 0.29vw;
     background-color: #EFEFE6;
