@@ -7,6 +7,7 @@ var compline = 0;
 var notneededwords = [];
 var foundareas= [false, false, false, false]
 var log = "";
+const maxFontSize = parseInt(window.getComputedStyle(words[0]).fontSize)*1.1;
 function logToDebugger(message) {
     let dubugconsole = document.getElementById("console")
     if (log=="") {
@@ -510,3 +511,25 @@ document.getElementById("submit").addEventListener("mousedown", function() {
         logToDebugger("ERROR: "+error.stack)
     }
 })
+function adjustFontSize() {
+    const words = document.querySelectorAll('.word');
+    
+    words.forEach(word => {
+        let fontSize = maxFontSize
+        while (word.scrollWidth <= word.clientWidth && fontSize<=maxFontSize) {
+            fontSize++; // Increase font size
+            word.style.fontSize = fontSize + 'px';
+        }
+        // Check if text overflows
+        while (word.scrollWidth > word.clientWidth && fontSize > 5) {
+            fontSize--; // Decrease font size
+            word.style.fontSize = fontSize + 'px';
+        }
+
+        // Optionally, increase the font size if it fits
+        
+    });
+}
+
+// Run the adjustment function every 100 milliseconds
+setInterval(adjustFontSize, 100);
