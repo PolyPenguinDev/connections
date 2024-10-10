@@ -1,4 +1,6 @@
 let words = document.querySelectorAll(".word");
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)/100
+const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)/100
 var selected_count = 0;
 var selected = new Set();
 var parsedData = []
@@ -52,6 +54,7 @@ function shuffle(array) {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
+    
   }
 function parseJsonTags(inputString) {
     console.log(inputString);
@@ -292,6 +295,8 @@ document.getElementById("shuffle").addEventListener("mousedown", function() {
         word.innerText=madewords[i];
         i++
     })
+    
+    adjustFontSize()
 })
 function showall() {
 
@@ -510,20 +515,39 @@ document.getElementById("submit").addEventListener("mousedown", function() {
     } catch(error) {
         logToDebugger("ERROR: "+error.stack)
     }
+    adjustFontSize()
 })
 function adjustFontSize() {
     const words = document.querySelectorAll('.word');
     
     words.forEach(word => {
-        let fontSize = maxFontSize
-        while (word.scrollWidth <= word.clientWidth && fontSize<=maxFontSize) {
-            fontSize++; // Increase font size
-            word.style.fontSize = fontSize + 'px';
-        }
-        // Check if text overflows
-        while (word.scrollWidth > word.clientWidth && fontSize > 5) {
-            fontSize--; // Decrease font size
-            word.style.fontSize = fontSize + 'px';
+        try {
+            let fontSize = maxFontSize
+            while (word.scrollWidth <= word.clientWidth && fontSize<=maxFontSize) {
+                fontSize++; // Increase font size
+                word.style.fontSize = fontSize + 'px';
+            }
+            // Check if text overflows
+            while (word.scrollWidth > word.clientWidth && fontSize > 5) {
+                fontSize--; // Decrease font size
+                word.style.fontSize = fontSize + 'px';
+            }
+            word.style.paddingTop='0px'
+            word.style.paddingBottom='0px'
+            word.style.height='0px'
+            console.log(word)
+            let pfs=fontSize
+            fontSize=word.scrollHeight
+            
+            
+            let height = 5.82*vw
+            let padding = (height-fontSize)/2
+            height=height-padding
+            word.style.paddingTop=padding+(0.75*vw)+(0.03*pfs) + 'px'
+            word.style.paddingBottom=padding+(0.75*vw)-(0.03*pfs) + 'px'
+            word.style.height=fontSize + 'px'
+        } catch(error) {
+            logToDebugger("ERROR: "+error.stack)
         }
 
         // Optionally, increase the font size if it fits
@@ -533,3 +557,8 @@ function adjustFontSize() {
 
 // Run the adjustment function every 100 milliseconds
 setInterval(adjustFontSize, 100);
+adjustFontSize()
+
+
+
+
