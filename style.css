@@ -3,15 +3,13 @@ body {
 }
 .word {
     padding: 0.75vw;
-    width: 5.57vw; /* Set fixed width */
-    height: 5.57vw; /* Set fixed height */
+    width: 5.82vw; /* Set fixed width */
+    height: 5.82vw; /* Set fixed height */
     border-radius: 1.17vw;
     display: inline-block; /* Flexbox to center text */
-    align-content: center; /* Center horizontally */
     overflow: hidden; /* Hide overflow if the text is too long */
     /*word-wrap: break-word; /* Break words if too long */
-    margin: 0.07vw;
-    margin-bottom: 0.29vw;
+    margin: 0.04vw;
     background-color: #EFEFE6;
     font-family: 'Nunito';
     cursor: pointer;
@@ -77,6 +75,7 @@ svg {
 .button:not(.disabledbutton):not(.clicked):hover {
     transform: scale(1.1); /* Increase size on hover */
     transition: transform 0.2s ease;
+    background-color: #A5A49A;
 }
 .word:hover {
     transform: scale(1.1); /* Increase size on hover */
