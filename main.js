@@ -91,7 +91,7 @@ words.forEach(word => {
         if (this.classList.contains("selected")) {
             selected.delete(this.innerText.toLowerCase())
             console.log(selected)
-            this.classList.remove("selected");
+            ;
             if (selected_count == 4) {
                 document.getElementById("submit").classList.add("disabledbutton");
             }
@@ -103,11 +103,12 @@ words.forEach(word => {
 
             // Remove the 'clicked' class after 0.3s to allow for future clicks
             setTimeout(() => {
+                this.classList.remove("selected")
                 this.classList.remove('clicked');
             }, 100);
         } else {
             if (selected_count < 4) {
-                this.classList.add("selected");
+                
                 selected.add(this.innerText.toLowerCase())
                 console.log(selected)
                 selected_count += 1;
@@ -118,6 +119,7 @@ words.forEach(word => {
 
                 // Remove the 'clicked' class after 0.3s to allow for future clicks
                 setTimeout(() => {
+                    this.classList.add("selected");
                     this.classList.remove('clicked');
                 }, 100);
             }
