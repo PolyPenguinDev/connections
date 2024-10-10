@@ -2,6 +2,7 @@ body {
     font-size: 1.17vw;
 }
 .word {
+    z-index: 0;
     padding: 0.75vw;
     width: 5.82vw; /* Set fixed width */
     height: 5.82vw; /* Set fixed height */
@@ -15,7 +16,7 @@ body {
     cursor: pointer;
     font-weight: 500;
     text-transform: capitalize;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, z-index 0s;
 }
 #console {
     font-family: "Nunito";
@@ -78,8 +79,9 @@ svg {
     background-color: #A5A49A;
 }
 .word:hover {
+    box-shadow: 0px 0px 5vw #00000015, 0px 0px 2vw #00000010, 0px 0px 1vw inset #00000004;
     transform: scale(1.1); /* Increase size on hover */
-    transition: transform 0.2s ease;
+    z-index: 999; /* Place on top of everything */
 }
 
 .disabledbutton {
