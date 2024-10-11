@@ -209,7 +209,7 @@ const word3 = nouns[Math.floor(Math.random() * nouns.length)];
 const word4 = nouns[Math.floor(Math.random() * nouns.length)];
 
 const deepInfraToken = ""; // Make sure to set your token in environment variables
-
+localStorage.removeItem("queuedconnections")
 const requestData = {
     model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
     messages: [
