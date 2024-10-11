@@ -247,7 +247,7 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
     localStorage.setItem("queuedconnections", JSON.stringify(nextData));
     logToDebugger("next one generated!")
     let next = document.getElementById("next")
-    next.classList.remove("disabledbutton)
+    next.classList.remove("disabledbutton")
     next.innerText="Next Game"
 })
 .catch(error => {
