@@ -249,6 +249,9 @@ fetch("https://api.deepinfra.com/v1/openai/chat/completions", {
     let next = document.getElementById("next")
     next.classList.remove("disabledbutton")
     next.innerText="Next Game"
+    next.addEventListener("mousedown", function(){
+        document.location.reload()
+    })
 })
 .catch(error => {
     console.error('Error:', error); // Handle errors here
