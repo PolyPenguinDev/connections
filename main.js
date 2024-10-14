@@ -10,6 +10,22 @@ var notneededwords = [];
 var foundareas= [false, false, false, false]
 var log = "";
 const maxFontSize = parseInt(window.getComputedStyle(words[0]).fontSize)*1.1;
+function getHistory(word1, word2, word3, word4) {
+    return [{"role":"system", "content":"Create a clever and challenging word game in the style of The New York Times Connections. Design a puzzle that showcases your mastery of linguistic trickery, utilizing double meanings, homophones, homographs, and other wordplay techniques to craft a fun and engaging brain teaser. Incorporate seemingly related words that actually have no connection, as well as subtle patterns and clever misdirection to keep solvers on their toes. Make it intellectually stimulating, yet entertaining and rewarding to solve."},
+            {"role":"user", "content":`Create a custom New York Times Connections game with four lists, each containing four words that are interconnected through a common theme or concept. Design the lists to have some words from different lists that seem like they fit together, but actually don't, adding a layer of complexity to the puzzle.
+**Key Requirements:**
+1. **Word selection:** Use words that are not too complex or difficult, but still engaging and nuanced. **Emphasize words with multiple meanings, homophones, homographs, and words with related but distinct connotations.** 
+2. **Theme depth:** Design themes that go beyond simple associations, incorporating multiple layers and clever connections. **Incorporate themes that exploit the double meanings of words, requiring solvers to consider multiple interpretations.** 
+3. **Difficulty levels:** Create four lists with distinct difficulty levels, defined as follows:
+- Easy (1): Basic themes with familiar words and multiple definitions. Use a theme related to the word "`+word1+`", incorporating words with straightforward double meanings
+- Easy-Medium (2): Slightly more complex themes, requiring deeper connections. Create a theme centered around the word "`+word2+`", using words with related but distinct connotations.
+- Medium-Hard (3): Themes with multiple definitions or harder references. Design a theme that explores the word "`+word3+`", incorporating words with nuanced double meanings.
+- Hard (4): Thematic layers that challenge usual associations and require critical thinking. Create a theme that delves into the word "`+word4+`", using words with abstract double meanings.
+4. **Theme subtlety:** Avoid making the themes too obvious or straightforward. Incorporate clever connections and unexpected relationships between words.
+5. **Word uniqueness:** Use each word only once across all four lists.
+6. **Output format:** Ensure the output is in JSON format, encapsulated within the following tags: \`<json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json>\` make sure you explain your thinking before you say your output
+By emphasizing double meanings, homophones, and homographs, you should be able to create a Connections game that requires solvers to think creatively and consider multiple interpretations of each word. Remember not to create duplicates of the same word and to make huge use of words with double meanings.`}]
+}
 function logToDebugger(message) {
     let dubugconsole = document.getElementById("console")
     if (log=="") {
@@ -137,25 +153,7 @@ if (localStorage.getItem("queuedconnections")==null) {
 
     const requestData = {
         model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
-        messages: [
-            {
-                role: "user",
-                content: `You are creating a custom new york times connections game. Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should seem like they fit together, but they actually don’t. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Only use each word one.
-
-    The words should not be complex or difficult words, as that is not the point of the puzzle
-
-    The difficulty levels should not simply rely on harder vocabulary but should also involve harder themes. Each level should be defined as follows:
-
-    Easy (1): Basic themes with familiar words with multiple definitions. make it based on the word "`+word1+`”
-    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`”
-    Medium-Hard (3): Themes with multiple definitions or harder references. make it based on the word "`+word3+`”
-    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`”
-    don't make the themes just be the words, be a little clever.
-Make sure all the words make sense within their themes
-    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary.
-`
-            }
-        ],
+        messages: getHistory(word1, word2, word3, word4),
         temperature: 0.8
     };
 
@@ -212,24 +210,7 @@ const deepInfraToken = ""; // Make sure to set your token in environment variabl
 localStorage.removeItem("queuedconnections")
 const requestData = {
     model: "meta-llama/Meta-Llama-3.1-8B-Instruct",
-    messages: [
-        {
-            role: "user",
-            content: `You are creating a custom new york times connections game. Create four lists, each containing four words that are interconnected through a common theme or concept. However, some words from different lists should seem like they fit together, but they actually don’t. This means that certain words from separate lists might appear to have a connection or overlap, but they belong to distinct groups. Only use each word one.
-
-    The words should not be complex or difficult words, as that is not the point of the puzzle
-
-    The difficulty levels should not simply rely on harder vocabulary but should also involve harder themes. Each level should be defined as follows:
-
-    Easy (1): Basic themes with familiar words with multiple definitions. make it based on the word "`+word1+`”
-    Easy-Medium (2): Slightly more complex themes, requiring deeper connections. make it based on the word "`+word2+`”
-    Medium-Hard (3): Themes with multiple definitions or harder references. make it based on the word "`+word3+`”
-    Hard (4): Thematic layers that challenge the usual associations and require critical thinking. make it based on the word "`+word4+`”
-    don't make the themes just be the words, be a little clever.
-Make sure all the words make sense within their themes
-    Please format the output in JSON, ensuring that it is encapsulated within the following tags: <json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json> even though the challange isn't vocabluary doesn't mean that you need to use basic vocabulary.
-`        }
-    ],
+    messages: getHistory(word1, word2, word3, word4),
     temperature: 0.8
 };
 
