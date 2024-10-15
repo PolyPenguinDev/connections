@@ -24,6 +24,7 @@ function getHistory(word1, word2, word3, word4) {
 4. **Theme subtlety:** Avoid making the themes too obvious or straightforward. Incorporate clever connections and unexpected relationships between words. The theme shouldn't be overly dependent on the given word, it should just take some light inspiration from the words as they are only there because AI isn't random and I add random words in order to get a new output every time.
 5. **Word uniqueness:** Use each word only once across all four lists.
 6. **Output format:** Ensure the output is in JSON format, encapsulated within the following tags: \`<json>[{"difficulty":1, "theme":"", "words":["", "", "", ""]},{"difficulty":2, "theme":"", "words":["", "", "", ""]},{"difficulty":3, "theme":"", "words":["", "", "", ""]},{"difficulty":4, "theme":"", "words":["", "", "", ""]}]</json>\` make sure you explain your thinking before you say your output
+Make sure that you're themes are not just the given word, but add extra things on top of it. Also make all of you're themes before finding the words. 
 By emphasizing double meanings, homophones, and homographs, you should be able to create a Connections game that requires solvers to think creatively and consider multiple interpretations of each word. Remember not to create duplicates of the same word and to make huge use of words with double meanings.`}]
 }
 function logToDebugger(message) {
